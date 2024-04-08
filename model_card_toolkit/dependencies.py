@@ -18,7 +18,7 @@ import importlib
 from typing import Dict, List
 
 _VERSIONS = {
-    'absl': 'absl-py>=0.9,<1.1',
+    'absl': 'absl-py>=0.14.0',
     'importlib_resources': 'importlib-resources>=1.3.0; python_version<"3.9"',
     'isort': 'isort',
     'jinja2': 'jinja2>=3.1,<3.2',
