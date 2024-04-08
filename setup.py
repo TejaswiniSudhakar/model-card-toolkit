@@ -62,34 +62,34 @@ class _BuildCommand(build.build):
   ] + build.build.sub_commands
 
 
-# class _BazelBuildCommand(Command):
-#   """Build Bazel artifacts and move generated files."""
-#   def initialize_options(self):
-#     pass
+class _BazelBuildCommand(Command):
+  """Build Bazel artifacts and move generated files."""
+  def initialize_options(self):
+    pass
 
-#   def finalize_options(self):
-#     # verified with bazel 2.0.0, 3.0.0, and 4.0.0 via bazelisk
-#     self._bazel_cmd = shutil.which('bazel')
-#     if not self._bazel_cmd:
-#       self._bazel_cmd = shutil.which('bazelisk')
-#     if not self._bazel_cmd:
-#       raise RuntimeError(
-#           'Could not find "bazel" or "bazelisk" binary. Please visit '
-#           'https://docs.bazel.build/versions/main/install.html for '
-#           'installation instruction.'
-#       )
-#     self._additional_build_options = []
-#     if platform.system() == 'Darwin':  # see b/175182911 for context
-#       self._additional_build_options = ['--macos_minimum_os=10.9']
+  def finalize_options(self):
+    # verified with bazel 2.0.0, 3.0.0, and 4.0.0 via bazelisk
+    self._bazel_cmd = shutil.which('bazel')
+    if not self._bazel_cmd:
+      self._bazel_cmd = shutil.which('bazelisk')
+    if not self._bazel_cmd:
+      raise RuntimeError(
+          'Could not find "bazel" or "bazelisk" binary. Please visit '
+          'https://docs.bazel.build/versions/main/install.html for '
+          'installation instruction.'
+      )
+    self._additional_build_options = []
+    if platform.system() == 'Darwin':  # see b/175182911 for context
+      self._additional_build_options = ['--macos_minimum_os=10.9']
 
-#   def run(self):
-#     subprocess.check_call(
-#         [
-#             self._bazel_cmd, 'run', '--verbose_failures',
-#             *self._additional_build_options,
-#             '//proto_build:move_generated_files'
-#         ]
-#     )
+  def run(self):
+    subprocess.check_call(
+        [
+            self._bazel_cmd, 'run', '--verbose_failures',
+            *self._additional_build_options,
+            '//proto_build:move_generated_files'
+        ]
+    )
 
 
 setup(
